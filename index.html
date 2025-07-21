@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sudoku Solver</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="instructions">
+    <h3>Instructions</h3>
+    <p>Click on a square to select it, then type a number to fill it in. Use
+        the arrow keys or vim keys (h, j, k, l) to navigate between squares.
+        Click the "Solve Puzzle" button to see the solution.</p>
+  </div>
+  <h1>Sudoku Solver</h1>
+  <canvas id="grid" width="450" height="450"></canvas>
+  <button id="solve">Solve Puzzle</button>
+
+
+  <div id="number-pad">
+    <button>1</button>
+    <button>2</button>
+    <button>3</button>
+    <button>4</button>
+    <button>5</button>
+    <button>6</button>
+    <button>7</button>
+    <button>8</button>
+    <button>9</button>
+    <button>Clear</button>
+  </div>
+  <script src="script.js"></script>
+  <script src="solve.js"></script>
+</body>
+</html>
