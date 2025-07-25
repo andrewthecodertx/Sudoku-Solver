@@ -138,10 +138,22 @@ solveButton.addEventListener('click', () => {
 });
 
 const clearPuzzleButton = document.getElementById('clear-puzzle');
+const checkPuzzleButton = document.getElementById('check-puzzle');
+const checkResultDiv = document.getElementById('check-result');
 
 clearPuzzleButton.addEventListener('click', () => {
   puzzle = Array(gridSize).fill(null).map(() => Array(gridSize).fill(0));
   redraw();
+});
+
+checkPuzzleButton.addEventListener('click', () => {
+  if (isValidSudoku(puzzle)) {
+    checkResultDiv.textContent = 'Puzzle is valid!';
+    checkResultDiv.style.color = 'green';
+  } else {
+    checkResultDiv.textContent = 'Puzzle is NOT valid.';
+    checkResultDiv.style.color = 'red';
+  }
 });
 
 window.addEventListener('resize', resizeCanvas);

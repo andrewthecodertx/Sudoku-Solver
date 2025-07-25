@@ -59,3 +59,20 @@ function isValid(puzzle, row, col, num) {
 
   return true;
 }
+
+function isValidSudoku(puzzle) {
+  for (let r = 0; r < 9; r++) {
+    for (let c = 0; c < 9; c++) {
+      if (puzzle[r][c] !== 0) {
+        const num = puzzle[r][c];
+        puzzle[r][c] = 0; // Temporarily remove the number to check its validity
+        if (!isValid(puzzle, r, c, num)) {
+          puzzle[r][c] = num; // Restore the number
+          return false;
+        }
+        puzzle[r][c] = num; // Restore the number
+      }
+    }
+  }
+  return true;
+}
