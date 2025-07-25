@@ -61,6 +61,11 @@ function isValid(puzzle, row, col, num) {
 }
 
 function isValidSudoku(puzzle) {
+  // Check if the puzzle is complete (no empty cells)
+  if (findEmpty(puzzle)) {
+    return false; // Puzzle is not complete
+  }
+
   for (let r = 0; r < 9; r++) {
     for (let c = 0; c < 9; c++) {
       if (puzzle[r][c] !== 0) {
