@@ -137,9 +137,7 @@ solveButton.addEventListener('click', () => {
   redraw();
 });
 
-const clearPuzzleButton = document.createElement('button');
-clearPuzzleButton.id = 'clear-puzzle';
-clearPuzzleButton.textContent = 'Clear Puzzle';
+const clearPuzzleButton = document.getElementById('clear-puzzle');
 
 clearPuzzleButton.addEventListener('click', () => {
   puzzle = Array(gridSize).fill(null).map(() => Array(gridSize).fill(0));
