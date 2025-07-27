@@ -12,6 +12,8 @@ function resizeCanvas() {
   canvas.width = size;
   canvas.height = size;
   cellSize = canvas.width / gridSize;
+  solveButton.disabled = true;
+  checkPuzzleButton.disabled = true;
   redraw();
 }
 
@@ -137,12 +139,31 @@ solveButton.addEventListener('click', () => {
   redraw();
 });
 
+const generatePuzzleButton = document.getElementById('generate-puzzle');
 const clearPuzzleButton = document.getElementById('clear-puzzle');
 const checkPuzzleButton = document.getElementById('check-puzzle');
 const checkResultDiv = document.getElementById('check-result');
 
+solveButton.addEventListener('click', () => {
+  const solvedPuzzle = solveSudoku(puzzle);
+  puzzle = solvedPuzzle;
+  solveButton.disabled = true;
+  redraw();
+});
+
 clearPuzzleButton.addEventListener('click', () => {
   puzzle = Array(gridSize).fill(null).map(() => Array(gridSize).fill(0));
+  solveButton.disabled = true;
+  checkPuzzleButton.disabled = true;
+  generatePuzzleButton.disabled = false;
+  redraw();
+});
+
+generatePuzzleButton.addEventListener('click', () => {
+  puzzle = generateSudoku(40);
+  solveButton.disabled = false;
+  checkPuzzleButton.disabled = false;
+  generatePuzzleButton.disabled = true;
   redraw();
 });
 
