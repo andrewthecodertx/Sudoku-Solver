@@ -1,30 +1,24 @@
 # Sudoku Solver
 
-A simple, interactive web-based Sudoku solver that allows users to input a
-Sudoku puzzle and find its solution.
-
-## Live Demo
-
-Experience the Sudoku Solver live at: [https://andrewthecoder.com/sudoku](https://andrewthecoder.com/sudoku)
+This is a simple Sudoku solver that can solve any valid Sudoku puzzle. It can also generate new puzzles of varying difficulty.
 
 ## Features
 
-* **Interactive Grid:** Easily input numbers into the Sudoku grid.
-* **Solve Puzzle:** Find the solution to any valid Sudoku puzzle with a click
-of a button.
-* **Clear Grid:** Reset the grid to start a new puzzle.
+*   Solve any valid Sudoku puzzle
+*   Generate new puzzles
+*   Check if a puzzle is valid
+*   Clear the puzzle
+*   Responsive design
 
-## How to Use
+## How to use
 
-1. **Open in Browser:** Simply open the `index.html` file in your preferred web
-browser.
-2. **Input Puzzle:** Enter the known numbers of your Sudoku puzzle into the
-grid cells. Leave empty cells blank.
-3. **Solve:** Click the "Solve" button to display the solution.
-4. **Clear:** Click the "Clear" button to reset the grid and enter a new puzzle.
+1.  Open `index.html` in your browser.
+2.  Click the "Generate Puzzle" button to generate a new puzzle.
+3.  Click on a square to select it, then type a number to fill it in.
+4.  Click the "Solve Puzzle" button to see the solution.
+5.  Click the "Clear Puzzle" button to clear the puzzle.
+6.  Click the "Check Puzzle" button to check if the puzzle is valid.
 
-## Technologies Used
+## How it works
 
-* HTML
-* CSS
-* JavaScript
+The solver uses a backtracking algorithm to find the solution to the puzzle. The generator creates a new puzzle by first generating a complete, valid Sudoku puzzle, and then removing a random number of cells to create an incomplete puzzle.

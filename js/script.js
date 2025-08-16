@@ -156,11 +156,14 @@ clearPuzzleButton.addEventListener('click', () => {
   solveButton.disabled = true;
   checkPuzzleButton.disabled = true;
   generatePuzzleButton.disabled = false;
+  checkResultDiv.textContent = '';
+  checkResultDiv.classList.remove('visible');
   redraw();
 });
 
 generatePuzzleButton.addEventListener('click', () => {
-  puzzle = generateSudoku(40);
+  const cellsToRemove = Math.floor(Math.random() * 11) + 40; // Random number between 40 and 50
+  puzzle = generateSudoku(cellsToRemove);
   solveButton.disabled = false;
   checkPuzzleButton.disabled = false;
   generatePuzzleButton.disabled = true;
@@ -175,6 +178,7 @@ checkPuzzleButton.addEventListener('click', () => {
     checkResultDiv.textContent = 'Puzzle is NOT valid.';
     checkResultDiv.style.color = 'red';
   }
+  checkResultDiv.classList.add('visible');
 });
 
 window.addEventListener('resize', resizeCanvas);

@@ -7,33 +7,41 @@
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-  <div id="instructions">
-    <h3>Instructions</h3>
-    <p>Click on a square to select it, then type a number to fill it in. Use
-        the arrow keys or vim keys (h, j, k, l) to navigate between squares.
-        Click the "Solve Puzzle" button to see the solution.</p>
+  <div id="container">
+  
+  <h1>SUDOKU SOLVER</h1>
+  <canvas id="grid"></canvas>
+  <div id="buttons">
+    <button id="generate-puzzle">Generate Puzzle</button>
+    <button id="solve">Solve Puzzle</button>
+    <button id="clear-puzzle">Clear Puzzle</button>
+    <button id="check-puzzle">Check Puzzle</button>
   </div>
-  <h1>Sudoku Solver</h1>
-  <canvas id="grid" width="450" height="450"></canvas>
-  <button id="generate-puzzle">Generate Puzzle</button>
-  <button id="solve">Solve Puzzle</button>
-  <button id="clear-puzzle">Clear Puzzle</button>
-  <button id="check-puzzle">Check Puzzle</button>
   <div id="check-result"></div>
 
-  <div id="number-pad">
-    <button>1</button>
-    <button>2</button>
-    <button>3</button>
-    <button>4</button>
-    <button>5</button>
-    <button>6</button>
-    <button>7</button>
-    <button>8</button>
-    <button>9</button>
-    <button>Clear</button>
+  <div id="lower">
+    <div id="instructions">
+      <h3>Instructions</h3>
+      <p>Click on a square to select it, then type a number to fill it in. Use
+          the arrow keys or vim keys (h, j, k, l) to navigate between squares.
+          Click the "Solve Puzzle" button to see the solution.</p>
+    </div>
+
+    <div id="number-pad">
+      <button>1</button>
+      <button>2</button>
+      <button>3</button>
+      <button>4</button>
+      <button>5</button>
+      <button>6</button>
+      <button>7</button>
+      <button>8</button>
+      <button>9</button>
+      <button>C</button>
+    </div>
   </div>
 
+  </div>
   <script src="js/script.js"></script>
   <script src="js/solve.js"></script>
   <script src="js/generate.js"></script>

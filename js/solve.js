@@ -1,3 +1,10 @@
+function shuffle(array) {
+  for (let i = array.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+}
+
 function solveSudoku(puzzle) {
   const solvedPuzzle = JSON.parse(JSON.stringify(puzzle));
   if (solve(solvedPuzzle)) {
@@ -14,7 +21,10 @@ function solve(puzzle) {
 
   const [row, col] = find;
 
-  for (let num = 1; num <= 9; num++) {
+  const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  shuffle(numbers);
+
+  for (const num of numbers) {
     if (isValid(puzzle, row, col, num)) {
       puzzle[row][col] = num;
 

@@ -1,16 +1,48 @@
 body {
   display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: #eee;
+  font-family: sans-serif;
+}
+
+#container {
+  display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 canvas {
   border: 2px solid black;
   margin-bottom: 20px;
+  max-width: 100%;
+  height: auto;
+}
+
+#lower {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  width: 100%;
+}
+
+#buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+#buttons button {
+  margin: 0 5px;
 }
 
 #instructions {
-  width: 80%;
+  width: 50%;
 }
 
 #number-pad {
@@ -24,4 +56,14 @@ canvas {
   width: 50px;
   height: 50px;
   font-size: 20px;
+}
+
+#check-result {
+  height: 1.2em; /* Reserve space for the message */
+  margin-bottom: 10px;
+  visibility: hidden;
+}
+
+#check-result.visible {
+  visibility: visible;
 }
