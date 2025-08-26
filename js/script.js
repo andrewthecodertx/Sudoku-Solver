@@ -162,6 +162,8 @@ clearPuzzleButton.addEventListener('click', () => {
 });
 
 generatePuzzleButton.addEventListener('click', () => {
+  //TODO: Add difficulty selection
+
   const cellsToRemove = Math.floor(Math.random() * 11) + 40; // Random number between 40 and 50
   puzzle = generateSudoku(cellsToRemove);
   solveButton.disabled = false;
