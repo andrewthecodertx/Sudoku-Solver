@@ -1,6 +1,9 @@
 # Sudoku Solver
 
-This is a simple Sudoku solver that can solve any valid Sudoku puzzle. It can also generate new puzzles of varying difficulty.
+This is a simple Sudoku solver that can solve any valid Sudoku puzzle. It can also
+generate new puzzles of varying difficulty.
+
+Play [HERE!](https://developersandbox.xyz/sudoku)
 
 ## Features
 
