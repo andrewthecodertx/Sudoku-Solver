@@ -2,10 +2,11 @@ const canvas = document.getElementById('grid');
 const ctx = canvas.getContext('2d');
 const solveButton = document.getElementById('solve');
 const numberPad = document.getElementById('number-pad');
-const gridSize = 9;
+const GRID_SIZE = 9;
+const BOX_SIZE = 3;
 
 let cellSize;
-let puzzle = Array(gridSize).fill(null).map(() => Array(gridSize).fill(0));
+let puzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
 let selectedCell = { row: -1, col: -1 };
 
 /**
@@ -17,7 +18,7 @@ function resizeCanvas() {
 
   canvas.width = size;
   canvas.height = size;
-  cellSize = canvas.width / gridSize;
+  cellSize = canvas.width / GRID_SIZE;
   solveButton.disabled = true;
   checkPuzzleButton.disabled = true;
   redraw();
@@ -33,7 +34,7 @@ function drawGrid() {
 
   // thin lines
   ctx.lineWidth = 1;
-  for (let i = 0; i <= gridSize; i++) {
+  for (let i = 0; i <= GRID_SIZE; i++) {
     ctx.beginPath();
     ctx.moveTo(i * cellSize, 0);
     ctx.lineTo(i * cellSize, canvas.height);
@@ -47,8 +48,8 @@ function drawGrid() {
 
   // thick lines
   ctx.lineWidth = 3;
-  for (let i = 0; i <= gridSize; i++) {
-    if (i % 3 === 0) {
+  for (let i = 0; i <= GRID_SIZE; i++) {
+    if (i % BOX_SIZE === 0) {
       ctx.beginPath();
       ctx.moveTo(i * cellSize, 0);
       ctx.lineTo(i * cellSize, canvas.height);
@@ -74,8 +75,8 @@ function drawNumbers() {
 
   const selectedNum = selectedCell.row !== -1 ? puzzle[selectedCell.row][selectedCell.col] : 0;
 
-  for (let row = 0; row < gridSize; row++) {
-    for (let col = 0; col < gridSize; col++) {
+  for (let row = 0; row < GRID_SIZE; row++) {
+    for (let col = 0; col < GRID_SIZE; col++) {
       const num = puzzle[row][col];
       if (num !== 0) {
         if (num === selectedNum && selectedNum !== 0) {
@@ -120,7 +121,7 @@ canvas.addEventListener('click', (e) => {
   const col = Math.floor(x / cellSize);
   const row = Math.floor(y / cellSize);
 
-  if (col >= 0 && col < gridSize && row >= 0 && row < gridSize) {
+  if (col >= 0 && col < GRID_SIZE && row >= 0 && row < GRID_SIZE) {
     selectedCell = { row, col };
     redraw();
   } else {
@@ -134,8 +135,8 @@ window.addEventListener('keydown', (e) => {
     const key = parseInt(e.key);
     if (!isNaN(key) && key >= 1 && key <= 9) {
       const counts = {};
-      for (let r = 0; r < gridSize; r++) {
-        for (let c = 0; c < gridSize; c++) {
+      for (let r = 0; r < GRID_SIZE; r++) {
+        for (let c = 0; c < GRID_SIZE; c++) {
           const num = puzzle[r][c];
           if (num !== 0) {
             counts[num] = (counts[num] || 0) + 1;
@@ -154,31 +155,24 @@ window.addEventListener('keydown', (e) => {
       switch (e.key) {
         case 'ArrowUp':
         case 'k':
-          selectedCell.row = (selectedCell.row - 1 + gridSize) % gridSize;
+          selectedCell.row = (selectedCell.row - 1 + GRID_SIZE) % GRID_SIZE;
           break;
         case 'ArrowDown':
         case 'j':
-          selectedCell.row = (selectedCell.row + 1) % gridSize;
+          selectedCell.row = (selectedCell.row + 1) % GRID_SIZE;
           break;
         case 'ArrowLeft':
         case 'h':
-          selectedCell.col = (selectedCell.col - 1 + gridSize) % gridSize;
+          selectedCell.col = (selectedCell.col - 1 + GRID_SIZE) % GRID_SIZE;
           break;
         case 'ArrowRight':
         case 'l':
-          selectedCell.col = (selectedCell.col + 1) % gridSize;
+          selectedCell.col = (selectedCell.col + 1) % GRID_SIZE;
           break;
       }
       redraw();
     }
   }
-});
-
-solveButton.addEventListener('click', () => {
-  const solvedPuzzle = solveSudoku(puzzle);
-
-  puzzle = solvedPuzzle;
-  redraw();
 });
 
 const generatePuzzleButton = document.getElementById('generate-puzzle');
@@ -195,12 +189,12 @@ solveButton.addEventListener('click', () => {
 });
 
 clearPuzzleButton.addEventListener('click', () => {
-  puzzle = Array(gridSize).fill(null).map(() => Array(gridSize).fill(0));
+  puzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
   solveButton.disabled = true;
   checkPuzzleButton.disabled = true;
   generatePuzzleButton.disabled = false;
   checkResultDiv.textContent = '';
-  checkResultDiv.classList.remove('visible');
+  checkResultDiv.hidden = true;
   redraw();
 });
 
@@ -224,7 +218,7 @@ checkPuzzleButton.addEventListener('click', () => {
     checkResultDiv.textContent = 'Puzzle is NOT valid.';
     checkResultDiv.style.color = 'red';
   }
-  checkResultDiv.classList.add('visible');
+  checkResultDiv.hidden = false;
 });
 
 window.addEventListener('resize', resizeCanvas);
@@ -254,8 +248,8 @@ numberPad.addEventListener('click', (e) => {
 function updateNumberPad() {
   const counts = {};
 
-  for (let r = 0; r < gridSize; r++) {
-    for (let c = 0; c < gridSize; c++) {
+  for (let r = 0; r < GRID_SIZE; r++) {
+    for (let c = 0; c < GRID_SIZE; c++) {
       const num = puzzle[r][c];
       if (num !== 0) {
         counts[num] = (counts[num] || 0) + 1;
