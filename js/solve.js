@@ -17,7 +17,7 @@ function shuffle(array) {
  */
 function solveSudoku(puzzle) {
 
-  const solvedPuzzle = JSON.parse(JSON.stringify(puzzle));
+  const solvedPuzzle = structuredClone(puzzle);
   if (solve(solvedPuzzle)) {
     return solvedPuzzle;
   }
@@ -38,7 +38,7 @@ function solve(puzzle) {
 
   const [row, col] = find;
   const numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  l
+
   shuffle(numbers);
 
   for (const num of numbers) {
@@ -113,17 +113,16 @@ function isValidSudoku(puzzle) {
     return false; // not complete
   }
 
+  const tempPuzzle = structuredClone(puzzle);
+
   for (let r = 0; r < 9; r++) {
     for (let c = 0; c < 9; c++) {
-      if (puzzle[r][c] !== 0) {
-        const num = puzzle[r][c];
-        puzzle[r][c] = 0; // remove the number to check its validity
-        if (!isValid(puzzle, r, c, num)) {
-          puzzle[r][c] = num; // restore the number
-          return false;
-        }
-        puzzle[r][c] = num; // restore the number
+      const num = tempPuzzle[r][c];
+      tempPuzzle[r][c] = 0; // remove the number to check its validity
+      if (!isValid(tempPuzzle, r, c, num)) {
+        return false;
       }
+      tempPuzzle[r][c] = num; // restore the number
     }
   }
 
