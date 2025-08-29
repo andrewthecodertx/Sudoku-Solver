@@ -1,4 +1,6 @@
 import { GRID_SIZE, BOX_SIZE } from './constants.js';
+import { generateSudoku } from './generate.js';
+import { solveSudoku, isValidSudoku } from './solve.js';
 
 const canvas = document.getElementById('grid');
 const ctx = canvas.getContext('2d');
@@ -166,6 +168,7 @@ window.addEventListener('keydown', (e) => {
         puzzle[selectedCell.row][selectedCell.col] = 0;
         redraw();
       }
+      updateButtonStates();
     } else { // handle navigation
       e.preventDefault();
       switch (e.key) {
@@ -260,6 +263,7 @@ numberPad.addEventListener('click', (e) => {
       puzzle[selectedCell.row][selectedCell.col] = parseInt(number);
     }
     redraw();
+    updateButtonStates();
   }
 });
 
@@ -292,4 +296,29 @@ function updateNumberPad() {
       }
     }
   }
+}
+
+/**
+ * Checks if the puzzle is empty.
+ * @returns {boolean}
+ */
+function isPuzzleEmpty() {
+  for (let r = 0; r < GRID_SIZE; r++) {
+    for (let c = 0; c < GRID_SIZE; c++) {
+      if (puzzle[r][c] !== 0) {
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+/**
+ * Updates the state of the buttons based on the puzzle state.
+ * @returns {void}
+ */
+function updateButtonStates() {
+  const empty = isPuzzleEmpty();
+  solveButton.disabled = empty;
+  checkPuzzleButton.disabled = empty;
 }
