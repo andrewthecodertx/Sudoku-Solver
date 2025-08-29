@@ -20,4 +20,4 @@ jobs:
 
       - name: Copy files
         run: |
-          scp -o StrictHostKeyChecking=no -r ./* ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/developersandbox_com/sudoku
+          scp -o StrictHostKeyChecking=no -r ./* ${{ secrets.SSH_USERNAME }}@${{ secrets.SSH_HOST }}:/var/www/developersandbox_xyz/sudoku
