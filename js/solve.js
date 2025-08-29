@@ -57,6 +57,38 @@ function solve(puzzle) {
 }
 
 /**
+ * Counts the number of solutions for a Sudoku puzzle.
+ * @param {Array<Array<number>>} puzzle - The Sudoku puzzle.
+ * @returns {number}
+ */
+function countSolutions(puzzle) {
+  let count = 0;
+
+  function solveAndCount() {
+    const find = findEmpty(puzzle);
+    if (!find) {
+      count++;
+      return;
+    }
+
+    const [row, col] = find;
+    for (let num = 1; num <= 9; num++) {
+      if (isValid(puzzle, row, col, num)) {
+        puzzle[row][col] = num;
+        solveAndCount();
+        puzzle[row][col] = 0; // backtrack
+        if (count > 1) {
+          return; // exit early if more than one solution is found
+        }
+      }
+    }
+  }
+
+  solveAndCount();
+  return count;
+}
+
+/**
  * Finds an empty cell in the Sudoku puzzle.
  * @param {Array<Array<number>>} puzzle - The Sudoku puzzle.
  * @returns {Array<number>|null}
