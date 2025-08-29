@@ -1,9 +1,9 @@
+import { GRID_SIZE, BOX_SIZE } from './constants.js';
+
 const canvas = document.getElementById('grid');
 const ctx = canvas.getContext('2d');
 const solveButton = document.getElementById('solve');
 const numberPad = document.getElementById('number-pad');
-const GRID_SIZE = 9;
-const BOX_SIZE = 3;
 
 let cellSize;
 let puzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));

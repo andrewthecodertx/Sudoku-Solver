@@ -3,6 +3,12 @@
  * @param {number} cellsToRemove - The number of cells to remove from the solved puzzle.
  * @returns {Array<Array<number>>}
  */
+import { GRID_SIZE } from './constants.js';
+import { solveSudoku, countSolutions } from './solve.js';
+import { shuffle } from './utils.js';
+
+export { generateSudoku };
+
 function generateSudoku(cellsToRemove) {
   // 1. Create a completely solved Sudoku
   let puzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));

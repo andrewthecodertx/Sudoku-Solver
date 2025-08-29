@@ -1,0 +1,24 @@
+{
+  "name": "sudoku-solver",
+  "version": "1.0.0",
+  "description": "This is a simple Sudoku solver that can solve any valid Sudoku puzzle. It can also generate new puzzles of varying difficulty.",
+  "main": "index.js",
+  "scripts": {
+    "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andrewthecodertx/sudoku-solver.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/andrewthecodertx/sudoku-solver/issues"
+  },
+  "homepage": "https://github.com/andrewthecodertx/sudoku-solver#readme",
+  "devDependencies": {
+    "jest": "^30.1.1"
+  }
+}
