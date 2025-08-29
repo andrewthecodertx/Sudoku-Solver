@@ -59,6 +59,7 @@ canvas {
 }
 
 #check-result {
-  height: 1.2em; /* Reserve space for the message */
+  min-height: 1.2em; /* Reserve space for the message */
   margin-bottom: 10px;
+  visibility: hidden;
 }

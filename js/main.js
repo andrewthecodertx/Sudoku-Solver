@@ -194,7 +194,7 @@ clearPuzzleButton.addEventListener('click', () => {
   checkPuzzleButton.disabled = true;
   generatePuzzleButton.disabled = false;
   checkResultDiv.textContent = '';
-  checkResultDiv.hidden = true;
+  checkResultDiv.style.visibility = 'hidden';
   redraw();
 });
 
@@ -218,7 +218,7 @@ checkPuzzleButton.addEventListener('click', () => {
     checkResultDiv.textContent = 'Puzzle is NOT valid.';
     checkResultDiv.style.color = 'red';
   }
-  checkResultDiv.hidden = false;
+  checkResultDiv.style.visibility = 'visible';
 });
 
 window.addEventListener('resize', resizeCanvas);
