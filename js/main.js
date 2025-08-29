@@ -7,6 +7,7 @@ const BOX_SIZE = 3;
 
 let cellSize;
 let puzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
+let initialPuzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
 let selectedCell = { row: -1, col: -1 };
 
 /**
@@ -68,7 +69,6 @@ function drawGrid() {
  * @returns {void}
  */
 function drawNumbers() {
-  ctx.fillStyle = '#000';
   ctx.font = `${cellSize * 0.6}px sans-serif`;
   ctx.textAlign = 'center';
   ctx.textBaseline = 'middle';
@@ -79,10 +79,17 @@ function drawNumbers() {
     for (let col = 0; col < GRID_SIZE; col++) {
       const num = puzzle[row][col];
       if (num !== 0) {
+        // highlight all cells with the same number as the selected cell
         if (num === selectedNum && selectedNum !== 0) {
           ctx.fillStyle = 'rgba(100, 100, 255, 0.3)';
           ctx.fillRect(col * cellSize, row * cellSize, cellSize, cellSize);
-          ctx.fillStyle = '#000';
+        }
+
+        // set the color of the number
+        if (initialPuzzle[row][col] !== 0) {
+          ctx.fillStyle = '#000'; // original puzzle numbers are black
+        } else {
+          ctx.fillStyle = '#333399'; // user entered numbers are dark blue
         }
         ctx.fillText(num, col * cellSize + cellSize / 2, row * cellSize + cellSize / 2);
       }
@@ -133,24 +140,33 @@ canvas.addEventListener('click', (e) => {
 window.addEventListener('keydown', (e) => {
   if (selectedCell.row !== -1 && selectedCell.col !== -1) {
     const key = parseInt(e.key);
-    if (!isNaN(key) && key >= 1 && key <= 9) {
-      const counts = {};
-      for (let r = 0; r < GRID_SIZE; r++) {
-        for (let c = 0; c < GRID_SIZE; c++) {
-          const num = puzzle[r][c];
-          if (num !== 0) {
-            counts[num] = (counts[num] || 0) + 1;
+
+    // handle number input and deletion
+    if ((!isNaN(key) && key >= 1 && key <= 9) || e.key === 'Backspace' || e.key === 'Delete') {
+      // prevent changing the original puzzle
+      if (initialPuzzle[selectedCell.row][selectedCell.col] !== 0) {
+        return;
+      }
+
+      if (!isNaN(key)) {
+        const counts = {};
+        for (let r = 0; r < GRID_SIZE; r++) {
+          for (let c = 0; c < GRID_SIZE; c++) {
+            const num = puzzle[r][c];
+            if (num !== 0) {
+              counts[num] = (counts[num] || 0) + 1;
+            }
           }
         }
-      }
-      if (!counts[key] || counts[key] < 9) {
-        puzzle[selectedCell.row][selectedCell.col] = key;
+        if (!counts[key] || counts[key] < 9) {
+          puzzle[selectedCell.row][selectedCell.col] = key;
+          redraw();
+        }
+      } else { // Backspace or Delete
+        puzzle[selectedCell.row][selectedCell.col] = 0;
         redraw();
       }
-    } else if (e.key === 'Backspace' || e.key === 'Delete') {
-      puzzle[selectedCell.row][selectedCell.col] = 0;
-      redraw();
-    } else {
+    } else { // handle navigation
       e.preventDefault();
       switch (e.key) {
         case 'ArrowUp':
@@ -190,6 +206,7 @@ solveButton.addEventListener('click', () => {
 
 clearPuzzleButton.addEventListener('click', () => {
   puzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
+  initialPuzzle = Array(GRID_SIZE).fill(null).map(() => Array(GRID_SIZE).fill(0));
   solveButton.disabled = true;
   checkPuzzleButton.disabled = true;
   generatePuzzleButton.disabled = false;
@@ -204,6 +221,7 @@ generatePuzzleButton.addEventListener('click', () => {
   const cellsToRemove = Math.floor(Math.random() * 11) + 40; // Random number between 40 and 50
 
   puzzle = generateSudoku(cellsToRemove);
+  initialPuzzle = structuredClone(puzzle);
   solveButton.disabled = false;
   checkPuzzleButton.disabled = false;
   generatePuzzleButton.disabled = true;
@@ -229,6 +247,11 @@ resizeCanvas();
 
 numberPad.addEventListener('click', (e) => {
   if (e.target.tagName === 'BUTTON' && selectedCell.row !== -1 && selectedCell.col !== -1) {
+    // prevent changing the original puzzle
+    if (initialPuzzle[selectedCell.row][selectedCell.col] !== 0) {
+      return;
+    }
+
     const number = e.target.textContent;
 
     if (number === 'Clear') {
